@@ -6,6 +6,7 @@ use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProjectType extends AbstractType
 {
@@ -14,10 +15,7 @@ class ProjectType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('creationDate')
             ->add('dueDate')
-            ->add('isArchived')
-            ->add('users')
         ;
     }
 
