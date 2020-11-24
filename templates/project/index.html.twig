@@ -2,42 +2,38 @@
 
 {% block title %}Project index{% endblock %}
 
+{% block mainTitle %}Vos projets{% endblock %}
+
 {% block body %}
-    <h1>Project index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>CreationDate</th>
-                <th>DueDate</th>
-                <th>IsArchived</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for project in projects %}
-            <tr>
-                <td>{{ project.id }}</td>
-                <td>{{ project.name }}</td>
-                <td>{{ project.description }}</td>
-                <td>{{ project.creationDate ? project.creationDate|date('Y-m-d') : '' }}</td>
-                <td>{{ project.dueDate ? project.dueDate|date('Y-m-d') : '' }}</td>
-                <td>{{ project.isArchived ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('project_new') }}">Create new</a>
+    <section class="row">
+      {% for project in projects %}
+        <article class="col-6 col-md-4 col-lg-3">
+          <div class="card mb-3 secondBg">
+            <div class="card-header text-center">Pour le : {{project.dueDate | date("d/m/Y")}}</div>
+            <div class="card-body">
+              <h5 class="card-title">{{project.name}}</h5>
+              <p class="card-text">{{project.description}}</p>
+            </div>
+            <div class="card-footer">
+              <a class="btn btn-secondary" href="{{ path('project_show', {'id': project.id}) }}">Voir</a>
+              <a class="btn btn-secondary" href="{{ path('project_edit', {'id': project.id}) }}">Modifier</a>
+            </div>
+          </div>
+        </article>
+      {% else %}
+          <h2>Nous n'avez aucun projet enregistré</h2>
+      {% endfor %}
+      <article class="col-6 col-md-4 col-lg-3">
+        <div class="card mb-3 secondBg text-center">
+          <div class="card-header"></div>
+          <div class="card-body">
+            <h5 class="card-title">
+              <a class="btn btn-lg btn-secondary"href="{{ path('project_new') }}">+</a>
+            </h5>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+      </article>
+    </section>
 {% endblock %}
