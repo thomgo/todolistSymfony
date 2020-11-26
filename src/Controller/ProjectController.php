@@ -21,10 +21,10 @@ class ProjectController extends AbstractController
      * @Route("/", name="project_index", methods={"GET"})
      */
     public function index(ProjectRepository $projectRepository): Response
-    {
-
+    {   
+        $projects = $projectRepository->findProjectsByDate($this->getUser());
         return $this->render('project/index.html.twig', [
-           
+           "projects" => $projects
         ]);
     }
 
