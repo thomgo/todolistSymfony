@@ -6,7 +6,7 @@
 
 {% block body %}
     <section class="row">
-      {% for project in projects %}
+      {% for project in app.user.projects %}
         <article class="col-6 col-md-4 col-lg-3">
           <div class="card mb-3 secondBg">
             <div class="card-header text-center">Pour le : {{project.dueDate | date("d/m/Y")}}</div>
@@ -20,12 +20,10 @@
             </div>
           </div>
         </article>
-      {% else %}
-          <h2>Nous n'avez aucun projet enregistré</h2>
       {% endfor %}
       <article class="col-6 col-md-4 col-lg-3">
         <div class="card mb-3 secondBg text-center">
-          <div class="card-header"></div>
+          <div class="card-header">Nouveau projet</div>
           <div class="card-body">
             <h5 class="card-title">
               <a class="btn btn-lg btn-secondary"href="{{ path('project_new') }}">+</a>
