@@ -8,8 +8,6 @@
     <h2 class="h3 mb-3 font-weight-normal">Informations actuellement enregistrées</h2>
 
     {{ include('project/_form.html.twig') }}
-
-    <a class="btn btn-warning" href="{{ path('project_index') }}"> <= Retour aux projets</a>
-
     {{ include('project/_delete_form.html.twig') }}
+    <a class="btn btn-warning my-2" href="{{ path('project_index') }}"> <= Retour aux projets</a>
 {% endblock %}
