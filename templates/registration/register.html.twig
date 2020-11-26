@@ -1,14 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Créer un compte{% endblock %}
+
+{% block mainTitle %}Inscrivez-vous et commencez à gérer vos projets{% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+    <div class="row justify-content-center">
+        <div class="col-10 col-md-8">
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
 
-    <h1>Register</h1>
+            <h2 class="h3 mb-3 font-weight-normal">Merci de renseigner les informations ci-dessous</h2>
 
-    {{ form(registrationForm) }}
-        
+            {{ form(registrationForm) }}
+        </div>
+    </div>
+            
 {% endblock %}

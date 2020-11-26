@@ -13,3 +13,8 @@
 h1 {
   font-family: 'Nerko One', cursive;
 }
+
+.form-control:focus {
+  border: 4px solid  #7CAE7A;
+  box-shadow: none;
+}
