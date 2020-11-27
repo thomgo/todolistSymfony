@@ -51,4 +51,19 @@ class TaskController extends AbstractController
 
         return $this->redirectToRoute('project_show', ["id" => $task->getProject()->getId()]);
     }
+
+    /**
+     * @Route("/archive/{id}", name="task_archive", methods={"PATCH"})
+     */
+    public function archive(Request $request, Task $task): Response
+    {
+        if ($this->isCsrfTokenValid('archive'.$task->getId(), $request->request->get('_token'))) {
+            $task->setIsArchived(true);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($task);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('project_show', ["id" => $task->getProject()->getId()]);
+    }
 }

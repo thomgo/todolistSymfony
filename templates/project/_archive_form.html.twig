@@ -1,5 +1,5 @@
 <form method="post" action="{{ path('project_archive', {'id': project.id}) }}">
     <input type="hidden" name="_method" value="PATCH">
     <input type="hidden" name="_token" value="{{ csrf_token('archive' ~ project.id) }}">
-    <button class="btn mainBg mx-1">Archiver</button>
+    <button class="btn secondBg mx-1">Fini</button>
 </form>

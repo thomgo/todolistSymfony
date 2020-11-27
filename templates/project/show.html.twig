@@ -15,31 +15,42 @@
 {% endblock %}
 
 {% block body %}
-    <h2 class="h3 mb-3 font-weight-normal mb-2">Les tâches associées au projet</h2>
+    <h2 class="h3 mb-3 font-weight-normal mb-2">A faire</h2>
 
     <section class="row">
       {% for task in project.tasks %}
         <article class="col-6 col-md-4 col-lg-3">
-          <div class="card mb-3 secondBg">
-            <div class="card-header text-center">Pour le : {{task.dueDate | date("d/m/Y")}}</div>
+          <div class="card mb-3 bg-secondary {{ task.isArchived ? "done"}}">
+            <div class="card-header text-center">
+              Pour le : {{task.dueDate | date("d/m/Y")}}
+              {% if task.isArchived %}
+                <span class="badge mainBg mx-1">Fini</span> 
+              {% else %}
+                <span class="badge secondBg mx-1">En cours</span>
+              {% endif %}
+            </div>
             <div class="card-body">
               <h5 class="card-title">{{task.name}}</h5>
               <p class="card-text">{{task.description}}</p>
             </div>
-            <div class="card-footer">
-              <a class="btn btn-secondary" href="{{ path('task_edit', {'id': task.id}) }}">Modifier</a>
-               {{ include('task/_delete_form.html.twig') }}
+            <div class="card-footer d-flex">
+              {% if task.isArchived %}
+                {{ include('task/_delete_form.html.twig') }}
+              {% else %}
+                {{ include('task/_archive_form.html.twig') }}
+                <a class="btn mainBg" href="{{ path('task_edit', {'id': task.id}) }}">Modifier</a>
+              {% endif %}
             </div>
           </div>
         </article>
       {% endfor %}
       <article class="col-6 col-md-4 col-lg-3">
-        <div class="card mb-3 secondBg text-center">
+        <div class="card mb-3 bg-secondary text-center">
           <div class="card-header">Nouvelle tâche</div>
           <div class="card-body">
             <h5 class="card-title">
               {# <a class="btn btn-lg btn-secondary"href="{{ path('task_new') }}">+</a> #}
-              <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#taskForm">+</button>
+              <button type="button" class="btn btn-lg secondBg" data-toggle="modal" data-target="#taskForm">+</button>
             </h5>
           </div>
           <div class="card-footer">

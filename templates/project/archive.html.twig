@@ -17,8 +17,8 @@
               <h5 class="card-title">{{project.name}}</h5>
               <p class="card-text">{{project.description}}</p>
             </div>
-            <div class="card-footer">
-              <a class="btn btn-secondary" href="{{ path('project_show', {'id': project.id}) }}">Voir</a>
+            <div class="card-footer d-flex">
+              <a class="btn mainBg mx-1 href="{{ path('project_show', {'id': project.id}) }}">Voir</a>
                {{ include('project/_delete_form.html.twig') }}
             </div>
           </div>

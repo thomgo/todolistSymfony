@@ -126,7 +126,7 @@ class ProjectController extends AbstractController
         return $this->redirectToRoute('project_index');
     }
 
-        /**
+    /**
      * @Route("/archive/{id}", name="project_archive", methods={"PATCH"})
      */
     public function archive(Request $request, Project $project): Response

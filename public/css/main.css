@@ -5,6 +5,7 @@
 
 .secondBg {
   background-color: #7CAE7A;
+  color: white;
 }
 
 h1 {
@@ -18,4 +19,8 @@ h1 {
 
 select, select option, .modal {
   color: black;
+}
+
+.done {
+  opacity: 0.5;
 }

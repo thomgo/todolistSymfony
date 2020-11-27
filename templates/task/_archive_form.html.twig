@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('task_archive', {'id': task.id}) }}">
+    <input type="hidden" name="_method" value="PATCH">
+    <input type="hidden" name="_token" value="{{ csrf_token('archive' ~ task.id) }}">
+    <button class="btn secondBg mx-1">fini</button>
+</form>
