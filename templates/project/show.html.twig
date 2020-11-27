@@ -4,11 +4,18 @@
 
 {% block mainTitle %}{{project.name}}{% endblock %}
 
-{% block body %}
+{% block subTitle %}
+  <div class="alert alert-secondary text-left">
     <p>{{project.description}}</p>
-    <span class="badge badge-secondary">{{project.dueDate | date("d/m/Y")}}</span>
-    <h2 class="h3 mb-3 font-weight-normal">Les tâches associées au projet</h2>
-    <a class="btn btn-warning" href="{{ path('project_index') }}"> <= Retour aux projets</a>
+    <hr>
+    <div class="text-right">
+      Date de livraison le <span class="badge badge-secondary">{{project.dueDate | date("d/m/Y")}}</span>
+    </div>
+  </div>
+{% endblock %}
+
+{% block body %}
+    <h2 class="h3 mb-3 font-weight-normal mb-2">Les tâches associées au projet</h2>
 
     <section class="row">
       {% for task in project.tasks %}
