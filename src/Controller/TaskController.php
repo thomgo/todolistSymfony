@@ -17,48 +17,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class TaskController extends AbstractController
 {
-    /**
-     * @Route("/", name="task_index", methods={"GET"})
-     */
-    public function index(TaskRepository $taskRepository): Response
-    {
-        return $this->render('task/index.html.twig', [
-            'tasks' => $taskRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="task_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $task = new Task();
-        $form = $this->createForm(TaskType::class, $task);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($task);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('task_index');
-        }
-
-        return $this->render('task/new.html.twig', [
-            'task' => $task,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="task_show", methods={"GET"})
-     */
-    public function show(Task $task): Response
-    {
-        return $this->render('task/show.html.twig', [
-            'task' => $task,
-        ]);
-    }
 
     /**
      * @Route("/{id}/edit", name="task_edit", methods={"GET","POST"})
@@ -71,7 +29,7 @@ class TaskController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('task_index');
+            return $this->redirectToRoute('project_show', ["id" => $task->getProject()->getId()]);
         }
 
         return $this->render('task/edit.html.twig', [
