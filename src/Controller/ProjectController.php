@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Entity\Task;
 use App\Form\ProjectType;
+use App\Form\TaskType;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,12 +57,27 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="project_show", methods={"GET"})
+     * @Route("/{id}", name="project_show", methods={"GET", "POST"})
      */
-    public function show(Project $project): Response
+    public function show(int $id, ProjectRepository $projectRepository, Request $request): Response
     {
+        $project = $projectRepository->findProjectWithTasks($id);
+        $task = new Task();
+        $form = $this->createForm(TaskType::class, $task);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task->setProject($project);
+            $task->setCreationDate(new \DateTime("now"));
+            $task->setIsArchived(false);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($task);
+            $entityManager->flush();
+        }
+
         return $this->render('project/show.html.twig', [
             'project' => $project,
+            'form' => $form->createView()
         ]);
     }
 

@@ -33,15 +33,16 @@ class ProjectRepository extends ServiceEntityRepository
         ;
     }
 
-    /*
-    public function findOneBySomeField($value): ?Project
+    public function findProjectWithTasks(int $id): ?Project
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin("p.tasks", "t")
+            ->addSelect("t")
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->orderBy("t.dueDate", "ASC")
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

@@ -1,9 +1,6 @@
-* {
-  color: white;
-}
-
 .mainBg {
   background-color: #394053;
+  color: white;
 }
 
 .secondBg {
@@ -19,6 +16,6 @@ h1 {
   box-shadow: none;
 }
 
-select, select option {
+select, select option, .modal {
   color: black;
 }
