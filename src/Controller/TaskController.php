@@ -49,6 +49,6 @@ class TaskController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('task_index');
+        return $this->redirectToRoute('project_show', ["id" => $task->getProject()->getId()]);
     }
 }
