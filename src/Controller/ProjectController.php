@@ -31,6 +31,17 @@ class ProjectController extends AbstractController
     }
 
     /**
+     * @Route("/archive", name="project_show_archive", methods={"GET"})
+     */
+    public function showArchive(ProjectRepository $projectRepository): Response
+    {   
+        $projects = $projectRepository->findProjectsByDate($this->getUser(), true);
+        return $this->render('project/archive.html.twig', [
+           "projects" => $projects
+        ]);
+    }
+
+    /**
      * @Route("/new", name="project_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -109,6 +120,21 @@ class ProjectController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($project);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('project_index');
+    }
+
+        /**
+     * @Route("/archive/{id}", name="project_archive", methods={"PATCH"})
+     */
+    public function archive(Request $request, Project $project): Response
+    {
+        if ($this->isCsrfTokenValid('archive'.$project->getId(), $request->request->get('_token'))) {
+            $project->setIsArchived(true);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($project);
             $entityManager->flush();
         }
 

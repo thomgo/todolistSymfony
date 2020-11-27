@@ -8,26 +8,29 @@
     <section class="row">
       {% for project in projects %}
         <article class="col-6 col-md-4 col-lg-3">
-          <div class="card mb-3 secondBg">
-            <div class="card-header text-center">Pour le : {{project.dueDate | date("d/m/Y")}}</div>
+          <div class="card mb-3 bg-secondary">
+            <div class="card-header text-center">
+              Pour le : {{project.dueDate | date("d/m/Y")}}
+              <span class="badge secondBg mx-1">En cours</span>
+            </div>
             <div class="card-body">
               <h5 class="card-title">{{project.name}}</h5>
               <p class="card-text">{{project.description}}</p>
             </div>
-            <div class="card-footer">
-              <a class="btn btn-secondary" href="{{ path('project_show', {'id': project.id}) }}">Voir</a>
-              <a class="btn btn-secondary" href="{{ path('project_edit', {'id': project.id}) }}">Modifier</a>
-               {{ include('project/_delete_form.html.twig') }}
+            <div class="card-footer d-flex justify-content-around">
+              <a class="btn mainBg mx-1" href="{{ path('project_show', {'id': project.id}) }}">Voir</a>
+              <a class="btn mainBg mx-1" href="{{ path('project_edit', {'id': project.id}) }}">Modifier</a>
+               {{ include('project/_archive_form.html.twig') }}
             </div>
           </div>
         </article>
       {% endfor %}
       <article class="col-6 col-md-4 col-lg-3">
-        <div class="card mb-3 secondBg text-center">
+        <div class="card mb-3 bg-secondary text-center">
           <div class="card-header">Nouveau projet</div>
           <div class="card-body">
             <h5 class="card-title">
-              <a class="btn btn-lg btn-secondary"href="{{ path('project_new') }}">+</a>
+              <a class="btn btn-lg secondBg"href="{{ path('project_new') }}">+</a>
             </h5>
           </div>
           <div class="card-footer">

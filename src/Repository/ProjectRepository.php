@@ -20,11 +20,13 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
-    public function findProjectsByDate(User $user):Array
+    public function findProjectsByDate(User $user, bool $isArchived = false):Array
     {
         return $this->createQueryBuilder('p')
             ->innerjoin("p.users", 'u')
             ->addSelect("u")
+            ->where("p.isArchived = :isArchived")
+            ->setParameter('isArchived', $isArchived)
             ->andWhere('u = :user')
             ->setParameter('user', $user)
             ->orderBy('p.dueDate', 'ASC')
